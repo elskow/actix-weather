@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: Weather API
+  description: Learn actix-rust framework
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:6969'
+    description: Local server
+paths:
+  /weather:
+    get:
+      summary: Get weather
+      description: Get weather by city (case-insensitive)
+      operationId: getWeather
+      parameters:
+        - name: city
+          in: query
+          description: City name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Weather information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherResponse'
+        '400' :
+          description: Invalid city
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /health:
+    get:
+      summary: Health check
+      description: Check server health
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Server is healthy
+        '500':
+          description: Server is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    WeatherResponse:
+      type: object
+      properties:
+        city:
+          type: string
+        temperature:
+          type: number
+        humidity:
+          type: number
+        wind_speed:
+          type: number
+        wind_direction:
+          type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
