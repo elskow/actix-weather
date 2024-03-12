@@ -1,7 +1,9 @@
 mod index;
 mod ping;
-mod hello;
+mod health;
+mod weather;
 
 pub use index::*;
 pub use ping::*;
-pub use hello::*;
+pub use health::*;
+pub use weather::*;

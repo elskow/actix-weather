@@ -4,6 +4,8 @@ use dotenv::dotenv;
 
 mod handler;
 mod domain;
+mod util;
+mod load_const;
 
 use handler::*;
 
@@ -17,7 +19,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(index)
             .service(ping)
-            .service(hello)
+            .service(health_check)
+            .service(get_weather)
     })
         .bind(("0.0.0.0", port.parse().unwrap()))?
         .run()
